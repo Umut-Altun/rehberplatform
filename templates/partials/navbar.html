@@ -1,0 +1,40 @@
+<nav class="navbar">
+    <div class="navbar-left">
+        <div class="toggle-sidebar">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <div class="navbar-right">
+        <a href="/" class="nav-icon">
+            <i class="fas fa-home"></i>
+        </a>
+        <div class="nav-icon notifications">
+            <i class="fas fa-bell"></i>
+        </div>
+        <a href="/mesajlar" class="nav-icon">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <div class="user-profile">
+            <div class="avatar">
+                <img src="/static/images/default-avatar.png" alt="{{ request.user.get_full_name|default:request.user.username }}">
+            </div>
+            <div class="user-info">
+                <span class="user-name">{{ request.user.get_full_name|default:request.user.username }}</span>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.student_profile %}
+                        <span class="user-role">{{ request.user.student_profile.get_role_display }}</span>
+                    {% elif request.user.teacher_profile %}
+                        <span class="user-role">{{ request.user.teacher_profile.get_role_display }}</span>
+                    {% elif request.user.is_staff %}
+                        <span class="user-role">Yönetici</span>
+                    {% else %}
+                        <span class="user-role">Öğrenci</span>
+                    {% endif %}
+                {% else %}
+                    <span class="user-role">Misafir</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

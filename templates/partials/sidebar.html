@@ -1,0 +1,93 @@
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-icon">
+            <span>R</span>
+        </div>
+        <div class="logo-text">
+            <span>Rehber Platform</span>
+        </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            <li class="nav-item {% if active_page == 'home' %}active{% endif %}">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Ana Sayfa</span>
+                </a>
+            </li>
+            <li class="nav-item {% if active_page == 'exercises' %}active{% endif %}">
+                <a href="/exercises/" class="nav-link">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Egzersizler</span>
+                </a>
+            </li>
+            {% if request.user.is_authenticated %}
+                {% if request.user.teacher_profile or request.user.is_staff %}
+                <li class="nav-item {% if active_page == 'students' %}active{% endif %}">
+                    <a href="/students/" class="nav-link">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Öğrenciler</span>
+                        <span class="badge">{{ total_students }}</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if request.user.is_staff %}
+                <li class="nav-item {% if active_page == 'teachers' %}active{% endif %}">
+                    <a href="/teachers/" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Öğretmenler</span>
+                        <span class="badge">{{ total_teachers }}</span>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% if request.user.is_staff %}
+    <div class="sidebar-heading">PREMİUM ÖZELLİKLER</div>
+
+    <nav class="sidebar-nav tools-nav">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    <span>Bildirimler</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Etkinlik Takibi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Raporlar</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+
+    <div class="sidebar-heading"></div>
+
+    <nav class="sidebar-nav tools-nav">
+        <ul class="nav-list">
+            <li class="nav-item {% if active_page == 'settings' %}active{% endif %}">
+                <a href="/settings/" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Ayarlar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

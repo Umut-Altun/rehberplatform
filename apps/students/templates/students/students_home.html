@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Öğrenciler - Zihin Atolyesi{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/students/css/students.css">
+{% endblock %}
+
+{% block content %}
+<!-- CSRF Token'ı gizli input olarak ekle -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+<div class="students-container">
+    <div class="page-header">
+        <h1 class="page-title">Öğrenciler</h1>
+        <a href="{% url 'students:add' %}" class="add-student-btn">
+            <i class="fas fa-plus"></i>
+            Öğrenci Ekle
+        </a>
+    </div>
+
+    <div class="search-container">
+        <form method="get" class="search-form">
+            <div class="search-input-group">
+                <div class="search-type">
+                    <span class="search-type-text" data-type="name">
+                        <i class="fas fa-user"></i>
+                        İsim
+                    </span>
+                    <span class="search-divider">|</span>
+                    <span class="search-type-text" data-type="tc">
+                        <i class="fas fa-id-card"></i>
+                        TC No
+                    </span>
+                </div>
+                <div class="search-input-wrapper">
+                    <input type="hidden" name="type" value="name" id="search-type">
+                    <input type="text" name="q" value="{{ query }}" class="search-input" 
+                           placeholder="İsim veya TC No ile ara..." autocomplete="off">
+                    <button type="submit" class="search-btn" title="Ara">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                {% if query %}
+                <a href="{% url 'students:home' %}" class="clear-search" title="Aramayı Temizle">
+                    <i class="fas fa-times"></i>
+                    Temizle
+                </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    
+    <div class="students-grid">
+        {% for student in students %}
+        <div class="student-card">
+            <div class="student-card-header">
+                <div class="student-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="student-info">
+                    <h3 class="student-name">{{ student.first_name }} {{ student.last_name }}</h3>
+                    <p class="student-number">{{ student.tc_no }}</p>
+                </div>
+            </div>
+            <div class="student-card-body">
+                <div class="info-item">
+                    <i class="fas fa-school"></i>
+                    <span>{{ student.school_name }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>{{ student.get_education_level_display }} - {{ student.grade }}</span>
+                </div>
+                {% if student.department %}
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <span>{{ student.department }}</span>
+                </div>
+                {% endif %}
+                <div class="info-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>{% if student.teacher %}{{ student.teacher.first_name }} {{ student.teacher.last_name }}{% else %}Öğretmen Atanmamış{% endif %}</span>
+                </div>
+            </div>
+            <div class="student-card-footer">
+                <a href="{% url 'students:detail' student.pk %}" class="btn btn-info" title="Detay">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="{% url 'students:edit' student.pk %}" class="btn btn-primary" title="Düzenle">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <button type="button" class="btn btn-danger" title="Sil" 
+                    data-student-id="{{ student.pk }}" 
+                    data-student-name="{{ student.first_name }} {{ student.last_name }}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-students">
+            {% if query %}
+            <i class="fas fa-search"></i>
+            <p>Arama sonucu bulunamadı.</p>
+            <a href="{% url 'students:home' %}" class="btn btn-primary">
+                <i class="fas fa-undo"></i>
+                Tüm Öğrencileri Göster
+            </a>
+            {% else %}
+            <i class="fas fa-user-graduate"></i>
+            <p>Henüz öğrenci eklenmemiş.</p>
+            <a href="{% url 'students:add' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                İlk Öğrenciyi Ekle
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/students/js/students.js"></script>
+{% endblock %} 

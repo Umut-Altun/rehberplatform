@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Öğretmenler - Zihin Atolyesi{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/teachers/css/teachers.css">
+{% endblock %}
+
+{% block content %}
+<!-- CSRF Token'ı gizli input olarak ekle -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+<div class="teachers-container">
+    <div class="page-header">
+        <h1 class="page-title">Öğretmenler</h1>
+        <a href="{% url 'teachers:add' %}" class="add-teacher-btn">
+            <i class="fas fa-plus"></i>
+            Öğretmen Ekle
+        </a>
+    </div>
+
+    <div class="search-container">
+        <form method="get" class="search-form">
+            <div class="search-input-group">
+                <div class="search-type">
+                    <span class="search-type-text" data-type="name">
+                        <i class="fas fa-user"></i>
+                        İsim
+                    </span>
+                    <span class="search-divider">|</span>
+                    <span class="search-type-text" data-type="tc">
+                        <i class="fas fa-id-card"></i>
+                        TC No
+                    </span>
+                </div>
+                <div class="search-input-wrapper">
+                    <input type="hidden" name="type" value="name" id="search-type">
+                    <input type="text" name="q" value="{{ query }}" class="search-input" 
+                           placeholder="İsim veya TC No ile ara..." autocomplete="off">
+                    <button type="submit" class="search-btn" title="Ara">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                {% if query %}
+                <a href="{% url 'teachers:home' %}" class="clear-search" title="Aramayı Temizle">
+                    <i class="fas fa-times"></i>
+                    Temizle
+                </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    
+    <div class="teachers-grid">
+        {% for teacher in teachers %}
+        <div class="teacher-card">
+            <div class="teacher-card-header">
+                <div class="teacher-avatar">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="teacher-info">
+                    <h3 class="teacher-name">{{ teacher.first_name }} {{ teacher.last_name }}</h3>
+                    <p class="teacher-number">{{ teacher.tc_no }}</p>
+                </div>
+            </div>
+            <div class="teacher-card-body">
+                <div class="info-item">
+                    <i class="fas fa-school"></i>
+                    <span>{{ teacher.school_name }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <span>{{ teacher.get_branch_display }}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>{{ teacher.experience_years }} Yıl Deneyim</span>
+                </div>
+            </div>
+            <div class="teacher-card-footer">
+                <a href="{% url 'teachers:detail' teacher.pk %}" class="btn btn-info" title="Detay">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="{% url 'teachers:edit' teacher.pk %}" class="btn btn-primary" title="Düzenle">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <button type="button" class="btn btn-danger" title="Sil" 
+                    data-teacher-id="{{ teacher.pk }}" 
+                    data-teacher-name="{{ teacher.first_name }} {{ teacher.last_name }}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-teachers">
+            {% if query %}
+            <i class="fas fa-search"></i>
+            <p>Arama sonucu bulunamadı.</p>
+            <a href="{% url 'teachers:home' %}" class="btn btn-primary">
+                <i class="fas fa-undo"></i>
+                Tüm Öğretmenleri Göster
+            </a>
+            {% else %}
+            <i class="fas fa-chalkboard-teacher"></i>
+            <p>Henüz öğretmen eklenmemiş.</p>
+            <a href="{% url 'teachers:add' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                İlk Öğretmeni Ekle
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/teachers/js/teachers.js"></script>
+{% endblock %} 

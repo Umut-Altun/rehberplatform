@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Zihin Atölyesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-form-section">
+            <div class="auth-form-container">
+                <div class="auth-header">
+                    <h1>GİRİŞ YAP</h1>
+                    <p class="auth-subtitle">How to i get started lorem ipsum dolor at?</p>
+                </div>
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Kullanıcı Adı" required>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Şifre" required>
+                        <i class="fas fa-lock input-icon"></i>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>veya</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-login-button google-btn">
+                        <img src="{% static 'images/google.svg' %}" alt="Google ile giriş yap">
+                        Google ile devam et
+                    </button>
+                    <button class="social-login-button facebook-btn">
+                        <img src="{% static 'images/facebook.svg' %}" alt="Facebook ile giriş yap">
+                        Facebook ile devam et
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <span>Hesabın yok mu?</span> <a href="{% url 'register' %}">Kayıt Ol</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-banner">
+            <div class="banner-content">
+                <h2>Türkiyenin<br>En Büyük<br>Destek Platformu!!!</h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html> 

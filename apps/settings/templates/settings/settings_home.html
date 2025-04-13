@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hesap Ayarları{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'settings/css/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <div class="page-header">
+        <h1 class="page-title">Hesap Ayarları</h1>
+        <div class="settings-nav">
+            <a href="?tab=profile" class="tab-link {% if active_tab == 'profile' %}active{% endif %}">
+                <i class="fas fa-user"></i>
+                <span>Profil Bilgileri</span>
+            </a>
+            <a href="?tab=password" class="tab-link {% if active_tab == 'password' %}active{% endif %}">
+                <i class="fas fa-key"></i>
+                <span>Şifre Değiştir</span>
+            </a>
+            <a href="?tab=settings" class="tab-link {% if active_tab == 'settings' %}active{% endif %}">
+                <i class="fas fa-cog"></i>
+                <span>Tercihler</span>
+            </a>
+        </div>
+    </div>
+
+    
+    <!-- Ayarlar Sekmeleri -->
+    <div class="settings-tabs">        
+        <div class="tabs-content">
+            <!-- Profil Bilgileri Sekmesi -->
+            <div class="tab-pane {% if active_tab == 'profile' %}active{% endif %}" id="profile">
+                <div class="settings-section">
+                    <div class="settings-section-header">
+                        <h3>Profil Bilgileriniz</h3>
+                        <p>Kişisel bilgilerinizi buradan güncelleyebilirsiniz.</p>
+                    </div>
+                    
+                    <div class="settings-form-container">
+                        <form method="post" action="{% url 'settings:update_profile' %}" id="profile-form">
+                            {% csrf_token %}
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>{{ profile_form.first_name.label }}</label>
+                                    {{ profile_form.first_name }}
+                                    {% if profile_form.first_name.errors %}
+                                    <div class="field-error">{{ profile_form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>{{ profile_form.last_name.label }}</label>
+                                    {{ profile_form.last_name }}
+                                    {% if profile_form.last_name.errors %}
+                                    <div class="field-error">{{ profile_form.last_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ profile_form.email.label }}</label>
+                                {{ profile_form.email }}
+                                {% if profile_form.email.errors %}
+                                <div class="field-error">{{ profile_form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Bilgileri Güncelle
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="user-info-display">
+                        
+                        <div class="user-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Kullanıcı Adı:</span>
+                                <span class="meta-value">{{ request.user.username }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Son Giriş:</span>
+                                <span class="meta-value">{{ request.user.last_login|date:"d/m/Y H:i" }}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Üyelik Tarihi:</span>
+                                <span class="meta-value">{{ request.user.date_joined|date:"d/m/Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Şifre Değiştirme Sekmesi -->
+            <div class="tab-pane {% if active_tab == 'password' %}active{% endif %}" id="password">
+                <div class="settings-section">
+                    <div class="settings-section-header">
+                        <h3>Şifre Değiştir</h3>
+                        <p>Hesabınızın güvenliği için düzenli olarak şifrenizi değiştirmeniz önerilir.</p>
+                    </div>
+                    
+                    <div class="settings-form-container">
+                        <form method="post" action="{% url 'settings:change_password' %}" id="password-form">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                <label>{{ password_form.old_password.label }}</label>
+                                {{ password_form.old_password }}
+                                {% if password_form.old_password.errors %}
+                                <div class="field-error">{{ password_form.old_password.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ password_form.new_password1.label }}</label>
+                                {{ password_form.new_password1 }}
+                                {% if password_form.new_password1.errors %}
+                                <div class="field-error">{{ password_form.new_password1.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ password_form.new_password2.label }}</label>
+                                {{ password_form.new_password2 }}
+                                {% if password_form.new_password2.errors %}
+                                <div class="field-error">{{ password_form.new_password2.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-key"></i>
+                                Şifremi Değiştir
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="password-guidelines">
+                        <h4>Güçlü Şifre Önerileri</h4>
+                        <ul>
+                            <li>En az 8 karakter uzunluğunda olmalı</li>
+                            <li>Büyük ve küçük harfler içermeli</li>
+                            <li>Rakam içermeli</li>
+                            <li>Özel karakter içermeli (?, !, &, vb.)</li>
+                            <li>Kolayca tahmin edilebilir kişisel bilgiler kullanmayın</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Uygulama Ayarları Sekmesi -->
+            <div class="tab-pane {% if active_tab == 'settings' %}active{% endif %}" id="settings">
+                <div class="settings-section">
+                    <div class="settings-section-header">
+                        <h3>Uygulama Ayarları</h3>
+                        <p>Platform tercihlerinizi buradan özelleştirebilirsiniz.</p>
+                    </div>
+                    
+                    <div class="settings-form-container">
+                        <form method="post" action="{% url 'settings:update_settings' %}" id="settings-form">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                <label>{{ settings_form.theme.label }}</label>
+                                {{ settings_form.theme }}
+                                {% if settings_form.theme.errors %}
+                                <div class="field-error">{{ settings_form.theme.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>{{ settings_form.language.label }}</label>
+                                {{ settings_form.language }}
+                                {% if settings_form.language.errors %}
+                                <div class="field-error">{{ settings_form.language.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <div class="checkbox-container">
+                                    {{ settings_form.notifications_enabled }}
+                                    <label for="{{ settings_form.notifications_enabled.id_for_label }}">
+                                        {{ settings_form.notifications_enabled.label }}
+                                    </label>
+                                </div>
+                                {% if settings_form.notifications_enabled.errors %}
+                                <div class="field-error">{{ settings_form.notifications_enabled.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <div class="checkbox-container">
+                                    {{ settings_form.email_notifications }}
+                                    <label for="{{ settings_form.email_notifications.id_for_label }}">
+                                        {{ settings_form.email_notifications.label }}
+                                    </label>
+                                </div>
+                                {% if settings_form.email_notifications.errors %}
+                                <div class="field-error">{{ settings_form.email_notifications.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Ayarları Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/settings/js/settings.js"></script>
+{% endblock %} 

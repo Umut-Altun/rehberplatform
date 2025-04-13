@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher.first_name }} {{ teacher.last_name }} - Öğretmen Detay{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/teachers/css/teachers.css">
+{% endblock %}
+
+{% block content %}
+<div class="teachers-container">
+    <div class="page-header">
+        <h1 class="page-title">Öğretmen Detay</h1>
+        <div class="header-actions">
+            <a href="{% url 'teachers:edit' teacher.pk %}" class="edit-btn">
+                <i class="fas fa-edit"></i>
+                Düzenle
+            </a>
+            <a href="{% url 'teachers:home' %}" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Geri Dön
+            </a>
+        </div>
+    </div>
+    
+    <div class="detail-container">
+        <div class="detail-header">
+            <div class="teacher-avatar-large">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="teacher-main-info">
+                <h2>{{ teacher.first_name }} {{ teacher.last_name }}</h2>
+                <p class="teacher-id">TC: {{ teacher.tc_no }}</p>
+                <p class="teacher-role">
+                    <span class="badge bg-primary" style="background-color: #6B4EFF !important;">
+                        {{ teacher.get_role_display }}
+                    </span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="detail-content">
+            <div class="info-section">
+                <h3>Hesap Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Kullanıcı Adı</label>
+                        <span>{{ teacher.user.username }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Rol</label>
+                        <span>{{ teacher.get_role_display }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Kişisel Bilgiler</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>E-posta</label>
+                        <span>{{ teacher.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Telefon</label>
+                        <span>{{ teacher.phone }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Branş Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Branş</label>
+                        <span>{{ teacher.get_branch_display }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Deneyim</label>
+                        <span>{{ teacher.experience_years }} Yıl</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Okul</label>
+                        <span>{{ teacher.school_name }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Sistem Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Kayıt Tarihi</label>
+                        <span>{{ teacher.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Son Güncelleme</label>
+                        <span>{{ teacher.updated_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/teachers/js/teachers.js"></script>
+{% endblock %} 

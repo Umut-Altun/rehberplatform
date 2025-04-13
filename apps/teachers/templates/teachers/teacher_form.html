@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - Zihin Atolyesi{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/teachers/css/teachers.css">
+{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">{{ title }}</h1>
+        </div>
+        <a href="{% url 'teachers:home' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Geri Dön
+        </a>
+    </div>
+
+    <div class="form-container">
+        <form method="post" class="teacher-form">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                Lütfen aşağıdaki hataları düzeltin:
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <div class="form-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}">Kullanıcı Adı</label>
+                        {{ form.username }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.password.id_for_label }}">Şifre</label>
+                        {{ form.password }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.password_confirm.id_for_label }}">Şifre (Tekrar)</label>
+                        {{ form.password_confirm }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.role.id_for_label }}">Kullanıcı Rolü</label>
+                        {{ form.role }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">Ad</label>
+                        {{ form.first_name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">Soyad</label>
+                        {{ form.last_name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.tc_no.id_for_label }}">TC Kimlik No</label>
+                        {{ form.tc_no }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">E-posta</label>
+                        {{ form.email }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.phone.id_for_label }}">Telefon</label>
+                        {{ form.phone }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="{{ form.school_name.id_for_label }}">Okul Adı</label>
+                        {{ form.school_name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.branch.id_for_label }}">Branş</label>
+                        {{ form.branch }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.experience_years.id_for_label }}">Deneyim (Yıl)</label>
+                        {{ form.experience_years }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/teachers/js/teachers.js"></script>
+{% endblock %} 

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.first_name }} {{ student.last_name }} - Öğrenci Detay{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/students/css/students.css">
+{% endblock %}
+
+{% block content %}
+<div class="students-container">
+    <div class="page-header">
+        <h1 class="page-title">Öğrenci Detay</h1>
+        <div class="header-actions">
+            <a href="{% url 'students:edit' student.pk %}" class="edit-btn">
+                <i class="fas fa-edit"></i>
+                Düzenle
+            </a>
+            <a href="{% url 'students:home' %}" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Geri Dön
+            </a>
+        </div>
+    </div>
+    
+    <div class="detail-container">
+        <div class="detail-header">
+            <div class="student-avatar-large">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="student-main-info">
+                <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+                <p class="student-id">TC: {{ student.tc_no }}</p>
+                <p class="student-role">
+                    <span class="badge bg-primary" style="background-color: #6B4EFF !important;">
+                        {{ student.get_role_display }}
+                    </span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="detail-content">
+            <div class="info-section">
+                <h3>Hesap Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Kullanıcı Adı</label>
+                        <span>{{ student.user.username }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Rol</label>
+                        <span>{{ student.get_role_display }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Kişisel Bilgiler</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Okul No</label>
+                        <span>{{ student.student_no }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>E-posta</label>
+                        <span>{{ student.email }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Eğitim Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Okul</label>
+                        <span>{{ student.school_name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Eğitim Düzeyi</label>
+                        <span>{{ student.get_education_level_display }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Sınıf</label>
+                        <span>{{ student.grade }}</span>
+                    </div>
+                    {% if student.department %}
+                    <div class="info-item">
+                        <label>Bölüm</label>
+                        <span>{{ student.department }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="info-item">
+                        <label>Öğretmen</label>
+                        <span>{% if student.teacher %}{{ student.teacher.first_name }} {{ student.teacher.last_name }}{% else %}Atanmamış{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Sistem Bilgileri</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Kayıt Tarihi</label>
+                        <span>{{ student.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Son Güncelleme</label>
+                        <span>{{ student.updated_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/students/js/students.js"></script>
+{% endblock %} 

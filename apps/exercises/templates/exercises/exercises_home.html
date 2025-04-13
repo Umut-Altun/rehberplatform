@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+
+{% block title %}Egzersizler - Zihin Atolyesi{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/exercises/css/exercises.css">
+{% endblock %}
+
+{% block content %}
+<div class="exercises-container">
+    <h1 class="category-title">Görüş Alanı Egzersizleri</h1>
+    
+    <div class="exercises-grid">
+        <!-- Çevresel Görüş Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="#4CAF50" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="#4CAF50"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Çevresel Görüş</h3>
+            <p class="exercise-description">Merkeze odaklanırken çevredeki değişimleri fark edin</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/peripheral-vision" class="exercise-button" data-exercise-id="peripheral-vision" data-exercise-type="vision">Başla</a>
+        </div>
+        
+        <!-- Kare Odak Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="14" height="14" stroke="#2196F3" stroke-width="2"/>
+                    <rect x="8" y="8" width="8" height="8" stroke="#2196F3" stroke-width="2"/>
+                    <rect x="11" y="11" width="2" height="2" fill="#2196F3"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kare Odak</h3>
+            <p class="exercise-description">Merkeze odaklanırken genişleyen kareleri fark edin</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/square-focus" class="exercise-button" data-exercise-id="square-focus" data-exercise-type="vision">Başla</a>
+        </div>
+        
+        <!-- Hızlı Tanıma Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5L12 19" stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 5L16 9" stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 5L8 9" stroke="#E53935" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Hızlı Tanıma</h3>
+            <p class="exercise-description">Kısa sürede gösterilen kelimeleri tanıyın</p>
+            <span class="difficulty-badge difficulty-hard">Zor</span>
+            <a href="/exercises/quick-recognition" class="exercise-button" data-exercise-id="quick-recognition" data-exercise-type="vision">Başla</a>
+        </div>
+        
+        <!-- Meyve Odaklanma Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="8" x2="20" y2="8" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="12" x2="20" y2="12" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="16" x2="20" y2="16" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="8" y1="4" x2="8" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="12" y1="4" x2="12" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="16" y1="4" x2="16" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <circle cx="12" cy="12" r="2" fill="#E53935"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Meyve Odaklanma</h3>
+            <p class="exercise-description">Merkezdeki meyveyi takip ederek yer değiştirmesine dikkat edin</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/fruit-tracking" class="exercise-button" data-exercise-id="fruit-tracking" data-exercise-type="vision">Başla</a>
+        </div>
+    </div>
+    
+    <h1 class="category-title">Dikkat ve Odaklanma Egzersizleri</h1>
+    
+    <div class="exercises-grid">
+        <!-- Konsantrasyon Izgarası Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" stroke="#333" stroke-width="1"/>
+                    <line x1="4" y1="8" x2="20" y2="8" stroke="#333" stroke-width="1"/>
+                    <line x1="4" y1="12" x2="20" y2="12" stroke="#333" stroke-width="1"/>
+                    <line x1="4" y1="16" x2="20" y2="16" stroke="#333" stroke-width="1"/>
+                    <line x1="8" y1="4" x2="8" y2="20" stroke="#333" stroke-width="1"/>
+                    <line x1="12" y1="4" x2="12" y2="20" stroke="#333" stroke-width="1"/>
+                    <line x1="16" y1="4" x2="16" y2="20" stroke="#333" stroke-width="1"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Konsantrasyon Izgarası</h3>
+            <p class="exercise-description">Sayıları sırayla bularak konsantrasyonunuzu geliştirin</p>
+            <span class="difficulty-badge difficulty-easy">Kolay</span>
+            <a href="/exercises/concentration-grid" class="exercise-button" data-exercise-id="concentration-grid" data-exercise-type="attention">Başla</a>
+        </div>
+        
+        <!-- Kelime Avı Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="#2196F3" stroke-width="2"/>
+                    <line x1="8" y1="8" x2="16" y2="8" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="16" x2="12" y2="16" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="18" cy="18" r="2" fill="#2196F3"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kelime Avı</h3>
+            <p class="exercise-description">Metindeki kelimeleri doğru sırayla bulun</p>
+            <span class="difficulty-badge difficulty-easy">Kolay</span>
+            <a href="/exercises/word-hunt" class="exercise-button" data-exercise-id="word-hunt" data-exercise-type="attention">Başla</a>
+        </div>
+        
+        <!-- Kelime Avcısı Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="8" stroke="#3498db" stroke-width="2"/>
+                    <path d="M12 8V16" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 12H16" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kelime Avcısı</h3>
+            <p class="exercise-description">Farklı konumlarda beliren kelimeleri takip ederek odaklanın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/word-tracker" class="exercise-button" data-exercise-id="word-tracker" data-exercise-type="attention">Başla</a>
+        </div>
+        
+        <!-- Göz Sıçrama Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="12" r="3" stroke="#3498db" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Göz Sıçrama</h3>
+            <p class="exercise-description">Göz kaslarınızı güçlendirin ve görsel algılama hızınızı artırın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/eye-jump" class="exercise-button" data-exercise-id="eye-jump" data-exercise-type="attention">Başla</a>
+        </div>
+    </div>
+    
+    <h1 class="category-title">Hafıza ve Refleksler</h1>
+    <div class="exercises-grid">
+        <!-- Hızlı Okuma Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="4" width="14" height="16" rx="2" stroke="#3498db" stroke-width="2"/>
+                    <line x1="8" y1="8" x2="16" y2="8" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="8" y1="16" x2="13" y2="16" stroke="#3498db" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Hızlı Okuma</h3>
+            <p class="exercise-description">Metinleri hızlıca okuyup soruları yanıtlayın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/speed-reading" class="exercise-button" data-exercise-id="speed-reading" data-exercise-type="memory">Başla</a>
+        </div>
+        
+        <!-- Desen Hafızası Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="8" x2="20" y2="8" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="12" x2="20" y2="12" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="4" y1="16" x2="20" y2="16" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="8" y1="4" x2="8" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="12" y1="4" x2="12" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <line x1="16" y1="4" x2="16" y2="20" stroke="#2196F3" stroke-width="1"/>
+                    <rect x="12" y="12" width="4" height="4" fill="#FFC107"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Desen Hafızası</h3>
+            <p class="exercise-description">Gösterilen desenleri hafızanızda tutup tekrarlayın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/pattern-memory" class="exercise-button" data-exercise-id="pattern-memory" data-exercise-type="memory">Başla</a>
+        </div>
+        
+        <!-- Kelime Eşleştirme Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="8" height="8" rx="1" stroke="#2196F3" stroke-width="1.5"/>
+                    <rect x="13" y="3" width="8" height="8" rx="1" stroke="#2196F3" stroke-width="1.5"/>
+                    <rect x="3" y="13" width="8" height="8" rx="1" stroke="#2196F3" stroke-width="1.5"/>
+                    <rect x="13" y="13" width="8" height="8" rx="1" stroke="#2196F3" stroke-width="1.5"/>
+                    <path d="M6 6H8M7 5V7" stroke="#E53935" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M16 16H18M17 15V17" stroke="#E53935" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kelime Eşleştirme</h3>
+            <p class="exercise-description">Hareketli kelimelerle hedef kelimeyi eşleştirin</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/word-matching" class="exercise-button" data-exercise-id="word-matching" data-exercise-type="memory">Başla</a>
+        </div>
+        
+        <!-- Kelime Gizleme Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="#2196F3" stroke-width="2"/>
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 15 15Z" stroke="#2196F3" stroke-width="2"/>
+                    <path d="M3 21L21 3" stroke="#E53935" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kelime Gizleme</h3>
+            <p class="exercise-description">Metni okuyun ve kelimeler gizlendikçe hatırlamaya çalışın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/word-hiding" class="exercise-button" data-exercise-id="word-hiding" data-exercise-type="memory">Başla</a>
+        </div>
+    </div>
+    
+    <h1 class="category-title">Göz - Beyin Koordinasyonu</h1>
+    <div class="exercises-grid">
+        <!-- Kelime Akışı Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="#2196F3" stroke-width="1.5"/>
+                    <path d="M8 12H16" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M8 8H12" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M8 16H14" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kelime Akışı</h3>
+            <p class="exercise-description">Akan kelimeleri okuyup anlama sorularını yanıtlayın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/word-flow" class="exercise-button" data-exercise-id="word-flow" data-exercise-type="eye-brain">Başla</a>
+        </div>
+        
+        <!-- Dikey Okuma Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8" y="4" width="8" height="16" rx="1" stroke="#2196F3" stroke-width="1.5"/>
+                    <circle cx="12" cy="7" r="1" fill="#2196F3"/>
+                    <circle cx="12" cy="12" r="1" fill="#2196F3"/>
+                    <circle cx="12" cy="17" r="1" fill="#2196F3"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Dikey Okuma</h3>
+            <p class="exercise-description">Dikey sütunlar halinde akan metinleri okuyarak hızınızı artırın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/vertical-reading" class="exercise-button" data-exercise-id="vertical-reading" data-exercise-type="eye-brain">Başla</a>
+        </div>
+        
+        <!-- Metin Aydınlatma Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="#2196F3" stroke-width="1.5"/>
+                    <line x1="8" y1="8" x2="16" y2="8" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="8" y1="16" x2="16" y2="16" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Metin Aydınlatma</h3>
+            <p class="exercise-description">Metni farklı aydınlatma teknikleriyle okuyun</p>
+            <span class="difficulty-badge difficulty-easy">Kolay</span>
+            <a href="/exercises/text-illumination" class="exercise-button" data-exercise-id="text-illumination" data-exercise-type="eye-brain">Başla</a>
+        </div>
+        
+        <!-- Cümle Açılımı Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="4" y1="6" x2="20" y2="6" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4" y1="12" x2="20" y2="12" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4" y1="18" x2="20" y2="18" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Cümle Açılımı</h3>
+            <p class="exercise-description">Metni cümle cümle okuyarak anlama ve odaklanma yeteneğinizi geliştirin</p>
+            <span class="difficulty-badge difficulty-hard">Zor</span>
+            <a href="/exercises/sentence-expansion" class="exercise-button" data-exercise-id="sentence-expansion" data-exercise-type="eye-brain">Başla</a>
+        </div>
+    </div>
+    
+    <h1 class="category-title">Zihinsel Matematik Egzersizleri</h1>
+    <div class="exercises-grid">
+        <!-- Eksik Sayıyı Bul Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="8" stroke="#2196F3" stroke-width="2"/>
+                    <path d="M12 8V12" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="16" r="1" fill="#2196F3"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Eksik Sayıyı Bul</h3>
+            <p class="exercise-description">Sayı dizilerindeki örüntüleri keşfederek eksik sayıları tamamlayın</p>
+            <span class="difficulty-badge difficulty-easy">Kolay</span>
+            <a href="/exercises/missing-number" class="exercise-button" data-exercise-id="missing-number" data-exercise-type="math">Başla</a>
+        </div>
+        
+        <!-- Sayı Sıralama Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="16" height="16" rx="2" stroke="#2196F3" stroke-width="1.5"/>
+                    <line x1="8" y1="8" x2="12" y2="8" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="8" y1="12" x2="16" y2="12" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="8" y1="16" x2="14" y2="16" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Sayı Sıralama</h3>
+            <p class="exercise-description">Gösterilen sayıları hafızanızda tutup küçükten büyüğe doğru sıralayın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/number-ordering" class="exercise-button" data-exercise-id="number-ordering" data-exercise-type="math">Başla</a>
+        </div>
+        
+        <!-- Kar Tanesi Egzersizi -->
+        <div class="exercise-card">
+            <div class="exercise-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2V22" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M2 12H22" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M4 4L20 20" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M4 20L20 4" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h3 class="exercise-title">Kar Tanesi</h3>
+            <p class="exercise-description">Kar taneleri gibi beliren sayıları küçükten büyüğe sıralayın</p>
+            <span class="difficulty-badge difficulty-medium">Orta</span>
+            <a href="/exercises/snowflake" class="exercise-button" data-exercise-id="snowflake" data-exercise-type="math">Başla</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/exercises/js/exercises.js"></script>
+{% endblock %} 
