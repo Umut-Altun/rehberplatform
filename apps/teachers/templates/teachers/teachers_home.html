@@ -76,6 +76,10 @@
                     <i class="fas fa-clock"></i>
                     <span>{{ teacher.experience_years }} Yıl Deneyim</span>
                 </div>
+                <div class="info-item">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>{{ teacher.students.count }} Öğrenci</span>
+                </div>
             </div>
             <div class="teacher-card-footer">
                 <a href="{% url 'teachers:detail' teacher.pk %}" class="btn btn-info" title="Detay">

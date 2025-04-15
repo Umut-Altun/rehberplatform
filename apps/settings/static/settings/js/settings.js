@@ -52,21 +52,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitButton.disabled = false;
                 
                 if (data.status === 'success') {
-                    // Başarılı mesajı göster
-                    showMessage('success', formId === 'profile-form' ? 'Profil bilgileriniz başarıyla güncellendi.' : 
-                                           formId === 'password-form' ? 'Şifreniz başarıyla değiştirildi.' : 
-                                           'Ayarlarınız başarıyla kaydedildi.');
-                                           
                     // Şifre değiştirme formunu temizle
                     if (formId === 'password-form') {
                         form.reset();
                     }
+                    // Başarılı işlem sonrası sayfayı yenile
+                    window.location.reload();
                 } else if (data.status === 'error') {
                     // Hata mesajlarını göster
-                    let errorMessage = '';
                     for (const field in data.errors) {
-                        errorMessage += `${data.errors[field].join(', ')} `;
-                        
                         // İlgili alana hata sınıfı ekle
                         const inputField = document.querySelector(`#id_${field}`);
                         if (inputField) {
@@ -82,14 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             errorElement.textContent = data.errors[field].join(', ');
                         }
                     }
-                    showMessage('error', errorMessage || 'Form gönderiminde bir hata oluştu.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 submitButton.innerHTML = originalButtonText;
                 submitButton.disabled = false;
-                showMessage('error', 'Bir hata oluştu. Lütfen tekrar deneyin.');
             });
         });
     });
@@ -101,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('error-field');
             const errorElement = this.parentNode.querySelector('.field-error');
             if (errorElement) {
-                errorElement.textContent = '';
+                errorElement.remove();
             }
         });
     });
