@@ -149,10 +149,6 @@
     .user-info {
         display: none;
     }
-    
-    .nav-icon:not(.notifications) {
-        display: none;
-    }
 }
 
 

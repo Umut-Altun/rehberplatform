@@ -1,0 +1,46 @@
+{% load i18n %}
+
+<div class="custom-modal-overlay" id="customErrorReportModalOverlay" style="display: none;">
+    <div class="custom-modal-content">
+        <form id="customErrorReportForm" action="{% url 'feedback:submit_error' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="page_url" value="">
+
+            <div class="custom-modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="modal-title">{% trans "Hata Bildir" %}</h3>
+                <button type="button" class="custom-modal-close" id="closeCustomErrorModalBtn" aria-label="{% trans 'Kapat' %}">&times;</button>
+            </div>
+
+            <div class="custom-modal-body">
+                <div id="customReportErrorFormAlert" class="custom-alert" style="display: none;"></div>
+
+                {# Django formu burada render edilecek - Şimdilik manuel alanlar #}
+                <div class="form-group-custom">
+                    <label for="id_report_type_custom">{% trans "Hata Türü" %}:</label>
+                    <select name="report_type" id="id_report_type_custom" class="form-control-custom">
+                        <option value="BUG">{% trans 'Yazılım Hatası' %}</option>
+                        <option value="UI_UX">{% trans 'Arayüz/Kullanıcı Deneyimi Sorunu' %}</option>
+                        <option value="FUNCTIONALITY">{% trans 'İşlevsellik Sorunu' %}</option>
+                        <option value="PERFORMANCE">{% trans 'Performans Sorunu' %}</option>
+                        <option value="OTHER" selected>{% trans 'Diğer' %}</option>
+                    </select>
+                </div>
+                <div class="form-group-custom">
+                    <label for="id_description_custom">{% trans "Açıklama" %}:</label>
+                    <textarea name="description" id="id_description_custom" rows="4" class="form-control-custom" placeholder="{% trans 'Lütfen hatayı detaylı açıklayın...' %}" required></textarea>
+                </div>
+            </div>
+
+            <div class="custom-modal-footer">
+                <button type="button" class="custom-modal-btn custom-modal-btn-cancel" id="cancelCustomErrorModalBtn">{% trans "Vazgeç" %}</button>
+                <button type="submit" class="custom-modal-btn custom-modal-btn-submit" id="submitCustomReportButton">
+                    <span class="spinner" style="display: none;"></span>
+                    {% trans "Gönder" %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

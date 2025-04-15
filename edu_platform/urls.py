@@ -18,6 +18,8 @@ urlpatterns = [
     path('teachers/', include('apps.teachers.urls')),
     # Add settings app URLs
     path('settings/', include('apps.settings.urls')),
+    # Add feedback app URLs under an 'api' namespace
+    path('api/feedback/', include('apps.feedback.urls', namespace='feedback')),
 ]
 
 # Serve media files in development

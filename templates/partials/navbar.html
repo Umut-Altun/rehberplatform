@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <nav class="navbar">
     <div class="navbar-left">
         <div class="toggle-sidebar">
@@ -6,18 +8,25 @@
     </div>
 
     <div class="navbar-right">
-        <a href="/" class="nav-icon">
+        <a href="#" class="nav-icon">
             <i class="fas fa-home"></i>
         </a>
-        <div class="nav-icon notifications">
-            <i class="fas fa-bell"></i>
-        </div>
-        <a href="/mesajlar" class="nav-icon">
-            <i class="fas fa-envelope"></i>
+        <a href="#" id="reportErrorBtn" class="nav-icon" title="{% trans 'Hata Bildir' %}">
+            <i class="fas fa-exclamation-triangle"></i>
         </a>
         <div class="user-profile">
             <div class="avatar">
-                <img src="/static/images/default-avatar.png" alt="{{ request.user.get_full_name|default:request.user.username }}">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.student_profile.profile_picture %}
+                        <img src="{{ request.user.student_profile.profile_picture.url }}" alt="{{ request.user.get_full_name|default:request.user.username }}">
+                    {% elif request.user.teacher_profile.profile_picture %}
+                        <img src="{{ request.user.teacher_profile.profile_picture.url }}" alt="{{ request.user.get_full_name|default:request.user.username }}">
+                    {% else %}
+                        <img src="/static/images/admin.png" alt="{{ request.user.get_full_name|default:request.user.username }}">
+                    {% endif %}
+                {% else %}
+                    <img src="/static/images/admin.png" alt="Kontrol Paneli">
+                {% endif %}
             </div>
             <div class="user-info">
                 <span class="user-name">{{ request.user.get_full_name|default:request.user.username }}</span>

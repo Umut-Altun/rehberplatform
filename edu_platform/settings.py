@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.students',
     'apps.teachers',
     'apps.settings',
+    'apps.feedback',
 ]
 
 MIDDLEWARE = [

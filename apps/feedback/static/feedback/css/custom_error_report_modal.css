@@ -1,0 +1,199 @@
+
+/* Custom Error Report Modal Styles */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Yarı saydam siyah arka plan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050; /* Navbar'dan yüksek olmalı */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.custom-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.custom-modal-content {
+    background-color: var(--white, #fff);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    padding: 0;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.custom-modal-overlay.active .custom-modal-content {
+    transform: translateY(0);
+}
+
+.custom-modal-header {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color, #eee);
+    position: relative;
+}
+
+.custom-modal-header .modal-icon {
+    font-size: 2.5rem;
+    color: var(--error-color, #F1416C);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.custom-modal-header .modal-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary, #333);
+    margin: 0;
+}
+
+.custom-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.8rem;
+    color: var(--text-secondary, #aaa);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.custom-modal-close:hover {
+    color: var(--text-primary, #333);
+}
+
+.custom-modal-body {
+    padding: 1.5rem 2rem;
+}
+
+.custom-modal-body .modal-message {
+    font-size: 1rem;
+    color: var(--text-secondary, #666);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group-custom {
+    margin-bottom: 1rem;
+}
+
+.form-group-custom label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-primary, #555);
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-control-custom:focus {
+    outline: none;
+    border-color: var(--primary-color, #6B4EFF);
+    box-shadow: 0 0 0 3px rgba(107, 78, 255, 0.1);
+}
+
+textarea.form-control-custom {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.custom-modal-footer {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid var(--border-color, #eee);
+    background-color: #f9f9f9;
+}
+
+.custom-modal-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.custom-modal-btn-cancel {
+    background-color: #f0f0f0;
+    color: var(--text-primary, #333);
+    border: 1px solid #ddd;
+}
+
+.custom-modal-btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+.custom-modal-btn-submit {
+    background-color: var(--primary-color, #6B4EFF);
+    color: var(--white, #fff);
+}
+
+.custom-modal-btn-submit:hover {
+    background-color: var(--primary-dark, #5a3de8);
+}
+
+/* Spinner for Submit Button */
+.custom-modal-btn .spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 0.5em;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Alert styles within the modal */
+.custom-alert {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.custom-alert.alert-success {
+    background-color: #d1e7dd; 
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.custom-alert.alert-danger {
+    background-color: #f8d7da; 
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
