@@ -111,16 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         studentCard.style.transform = 'scale(0.9)';
                         studentCard.style.opacity = '0';
                         
+                        // Animasyon bittikten sonra sayfayı yenile
                         setTimeout(() => {
-                            studentCard.remove();
-                            // Eğer hiç öğrenci kalmadıysa
-                            const remainingCards = document.querySelectorAll('.student-card');
-                            if (remainingCards.length === 0) {
-                                location.reload(); // Sayfayı yenile
-                            }
+                            close();
+                            window.location.reload();
                         }, 300);
-                        
-                        close();
                     } else {
                         throw new Error('Silme işlemi başarısız oldu');
                     }
@@ -172,4 +167,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-}); 
+});
