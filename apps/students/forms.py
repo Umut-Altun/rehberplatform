@@ -1,93 +1,107 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from .models import Student
 
 class StudentForm(forms.ModelForm):
-    username = forms.CharField(
-        max_length=150,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Kullanıcı Adı'
-        })
+    tc_validator = RegexValidator(
+        regex=r'^\d{11}$',
+        message='TC Kimlik No 11 haneli olmalıdır.'
     )
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Şifre'
-        })
+    
+    student_no_validator = RegexValidator(
+        regex=r'^\d+$',
+        message='Öğrenci numarası sadece rakamlardan oluşmalıdır.'
     )
-    password_confirm = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Şifre (Tekrar)'
-        })
+
+    tc_no = forms.CharField(
+        validators=[tc_validator],
+        max_length=11,
+        min_length=11
+    )
+    
+    student_no = forms.CharField(
+        validators=[student_no_validator],
+        max_length=20
     )
 
     class Meta:
         model = Student
         fields = [
-            'username', 'password', 'password_confirm',
             'first_name', 'last_name', 'tc_no', 'student_no',
-            'email', 'school_name', 'department', 'education_level', 'grade',
-            'teacher', 'role'
+            'email', 'school_name', 'department', 'education_level',
+            'grade', 'role', 'teacher'
         ]
-        widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ad'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Soyad'}),
-            'tc_no': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'TC Kimlik No'}),
-            'student_no': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Okul No'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-posta'}),
-            'school_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Okul Adı'}),
-            'department': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Bölüm'}),
-            'education_level': forms.Select(attrs={'class': 'form-control'}),
-            'grade': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sınıf'}),
-            'teacher': forms.Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Öğretmen Seçin'
-            }),
-            'role': forms.Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Rol Seçin'
-            }),
+        labels = {
+            'first_name': 'Ad',
+            'last_name': 'Soyad',
+            'tc_no': 'TC Kimlik No',
+            'student_no': 'Öğrenci No',
+            'email': 'E-posta',
+            'school_name': 'Okul Adı',
+            'department': 'Bölüm',
+            'education_level': 'Eğitim Seviyesi',
+            'grade': 'Sınıf',
+            'role': 'Rol',
+            'teacher': 'Öğretmen'
         }
 
-    def clean_tc_no(self):
-        tc_no = self.cleaned_data.get('tc_no')
-        if not tc_no.isdigit() or len(tc_no) != 11:
-            raise forms.ValidationError('TC Kimlik No 11 haneli sayısal bir değer olmalıdır.')
-        return tc_no
+    def __init__(self, *args, **kwargs):
+        edit_mode = kwargs.pop('edit_mode', False)
+        super().__init__(*args, **kwargs)
+        
+        if not edit_mode:
+            # Yeni öğrenci ekleme alanları
+            self.fields['username'] = forms.CharField(
+                max_length=150,
+                label='Kullanıcı Adı',
+                help_text='Giriş yaparken kullanılacak benzersiz kullanıcı adı'
+            )
+            self.fields['password'] = forms.CharField(
+                widget=forms.PasswordInput,
+                label='Şifre',
+                min_length=6
+            )
+            self.fields['password_confirm'] = forms.CharField(
+                widget=forms.PasswordInput,
+                label='Şifre (Tekrar)',
+                min_length=6
+            )
+
+        # Tüm alanlar için gereklilik kontrolü
+        for field in self.fields:
+            self.fields[field].required = True
+            if field != 'department':  # Bölüm alanı opsiyonel olabilir
+                self.fields[field].widget.attrs['required'] = 'required'
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         password_confirm = cleaned_data.get('password_confirm')
-        username = cleaned_data.get('username')
 
         if password and password_confirm:
             if password != password_confirm:
-                raise forms.ValidationError('Şifreler eşleşmiyor.')
-
-        if username:
-            if User.objects.filter(username=username).exists():
-                raise forms.ValidationError('Bu kullanıcı adı zaten kullanılıyor.')
+                raise forms.ValidationError('Şifreler eşleşmiyor!')
 
         return cleaned_data
 
-    def save(self, commit=True):
-        student = super().save(commit=False)
-        
-        # Yeni kullanıcı oluştur
-        user = User.objects.create_user(
-            username=self.cleaned_data['username'],
-            password=self.cleaned_data['password'],
-            email=self.cleaned_data['email'],
-            first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name']
-        )
-        
-        student.user = user
-        
-        if commit:
-            student.save()
-        
-        return student
+    def clean_tc_no(self):
+        tc_no = self.cleaned_data.get('tc_no')
+        if tc_no:
+            # TC No benzersizlik kontrolü
+            exists = Student.objects.filter(tc_no=tc_no)
+            if self.instance:
+                exists = exists.exclude(pk=self.instance.pk)
+            if exists.exists():
+                raise forms.ValidationError('Bu TC Kimlik No ile kayıtlı başka bir öğrenci var!')
+        return tc_no
+
+    def clean_student_no(self):
+        student_no = self.cleaned_data.get('student_no')
+        if student_no:
+            # Öğrenci No benzersizlik kontrolü
+            exists = Student.objects.filter(student_no=student_no)
+            if self.instance:
+                exists = exists.exclude(pk=self.instance.pk)
+            if exists.exists():
+                raise forms.ValidationError('Bu Öğrenci No ile kayıtlı başka bir öğrenci var!')
+        return student_no

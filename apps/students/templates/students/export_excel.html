@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Excel ile Öğrenci Aktarma - Zihin Atolyesi{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/students/css/students.css">
+<link rel="stylesheet" href="/static/students/css/export_excel.css">
+{% endblock %}
+
+{% block content %}
+<div class="students-container">
+    <div class="page-header">
+        <h1 class="page-title">Excel ile Öğrenci Aktarma</h1>
+        <a href="{% url 'students:home' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Geri Dön
+        </a>
+    </div>
+
+    <div class="excel-upload-container">
+        <div class="excel-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Excel Şablonunu İndirin</h3>
+                    <p>Öğrenci bilgilerini eklemek için örnek Excel şablonunu indirin.</p>
+                    <a href="{% url 'students:download_template' %}" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        Şablonu İndir
+                    </a>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Şablonu Doldurun</h3>
+                    <p>İndirdiğiniz şablonu öğrenci bilgileriyle doldurun. Yıldızlı (*) alanlar zorunludur.</p>
+                    <div class="field-info">
+                        <h4>Zorunlu Alanlar:</h4>
+                        <ul>
+                            <li>Kullanıcı Adı*</li>
+                            <li>Şifre*</li>
+                            <li>Ad*</li>
+                            <li>Soyad*</li>
+                            <li>TC Kimlik No* (11 haneli)</li>
+                            <li>Okul No*</li>
+                            <li>E-posta*</li>
+                            <li>Okul Adı*</li>
+                            <li>Eğitim Düzeyi* (ILK, ORTA, LISE, UNI)</li>
+                            <li>Sınıf*</li>
+                            <li>Rol* (STUDENT, GUEST)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Dosyayı Yükleyin</h3>
+                    <p>Doldurduğunuz Excel dosyasını buraya yükleyin.</p>
+                    <form id="uploadForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-file-excel"></i>
+                            <p>Excel dosyanızı buraya sürükleyin veya seçin</p>
+                            <input type="file" name="excel_file" id="excelFile" accept=".xlsx,.xls" hidden>
+                            <button type="button" class="select-file-btn" onclick="document.getElementById('excelFile').click()">
+                                Dosya Seç
+                            </button>
+                        </div>
+                        <div id="fileInfo" class="file-info" style="display: none;">
+                            <span id="fileName"></span>
+                            <button type="button" id="removeFile" class="remove-file-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <button type="submit" id="uploadButton" class="upload-btn" disabled>
+                            <i class="fas fa-upload"></i>
+                            Yükle ve Aktarmayı Başlat
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="resultArea" class="result-area" style="display: none;">
+            <h3>Aktarım Sonuçları</h3>
+            <div id="resultContent"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/students/js/export_excel.js"></script>
+{% endblock %}

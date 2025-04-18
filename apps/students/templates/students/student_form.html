@@ -7,6 +7,8 @@
 {% endblock %}
 
 {% block content %}
+{% include 'partials/messages.html' %}
+
 <div class="students-container">
     <div class="page-header">
         <h1 class="page-title">{{ title }}</h1>
@@ -20,100 +22,15 @@
         <form method="post" class="student-form">
             {% csrf_token %}
             
-            {% if form.errors %}
-            <div class="alert alert-danger">
-                Lütfen formdaki hataları düzeltin:
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ field.label }}: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="error">{{ field.errors.0 }}</div>
+                {% endif %}
             </div>
-            {% endif %}
-            
-            <div class="form-section">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="{{ form.username.id_for_label }}">Kullanıcı Adı</label>
-                        {{ form.username }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.password.id_for_label }}">Şifre</label>
-                        {{ form.password }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.password_confirm.id_for_label }}">Şifre (Tekrar)</label>
-                        {{ form.password_confirm }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.role.id_for_label }}">Kullanıcı Rolü</label>
-                        {{ form.role }}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="{{ form.first_name.id_for_label }}">Ad</label>
-                        {{ form.first_name }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.last_name.id_for_label }}">Soyad</label>
-                        {{ form.last_name }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.tc_no.id_for_label }}">TC Kimlik No</label>
-                        {{ form.tc_no }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.student_no.id_for_label }}">Okul No</label>
-                        {{ form.student_no }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.email.id_for_label }}">E-posta</label>
-                        {{ form.email }}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-section">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="{{ form.school_name.id_for_label }}">Okul Adı</label>
-                        {{ form.school_name }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.education_level.id_for_label }}">Eğitim Düzeyi</label>
-                        {{ form.education_level }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.grade.id_for_label }}">Sınıf</label>
-                        {{ form.grade }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.teacher.id_for_label }}">Öğretmen</label>
-                        {{ form.teacher }}
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="{{ form.department.id_for_label }}">Bölüm</label>
-                        {{ form.department }}
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             
             <div class="form-actions">
                 <button type="submit" class="submit-btn">
@@ -128,4 +45,4 @@
 
 {% block extra_js %}
 <script src="/static/students/js/students.js"></script>
-{% endblock %} 
+{% endblock %}

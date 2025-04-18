@@ -13,10 +13,16 @@
 <div class="students-container">
     <div class="page-header">
         <h1 class="page-title">Öğrenciler</h1>
-        <a href="{% url 'students:add' %}" class="add-student-btn">
-            <i class="fas fa-plus"></i>
-            Öğrenci Ekle
-        </a>
+        <div class="add-student-btn-group">
+            <a href="{% url 'students:add' %}" class="add-student-btn">
+                <i class="fas fa-plus"></i>
+                Öğrenci Ekle
+            </a>
+            <a href="{% url 'students:upload_excel' %}" class="add-student-btn">
+                <i class="fas fa-file-excel"></i>
+                Excel ile Aktar
+            </a>
+        </div>
     </div>
 
     <div class="search-container">
@@ -122,4 +128,4 @@
 
 {% block extra_js %}
 <script src="/static/students/js/students.js"></script>
-{% endblock %} 
+{% endblock %}

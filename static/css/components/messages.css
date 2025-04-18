@@ -1,0 +1,137 @@
+.message-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.message-box {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    animation: slideIn 0.3s ease;
+    border-left: 4px solid;
+}
+
+.message-box.success {
+    border-color: #2ecc71;
+    background-color: #edfbf3;
+}
+
+.message-box.error {
+    border-color: #e74c3c;
+    background-color: #fdf3f2;
+}
+
+.message-box.warning {
+    border-color: #f1c40f;
+    background-color: #fefae5;
+}
+
+.message-box.info {
+    border-color: #3498db;
+    background-color: #ebf5fb;
+}
+
+.message-content {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+}
+
+.message-icon {
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.success .message-icon {
+    color: #2ecc71;
+}
+
+.error .message-icon {
+    color: #e74c3c;
+}
+
+.warning .message-icon {
+    color: #f1c40f;
+}
+
+.info .message-icon {
+    color: #3498db;
+}
+
+.message-text h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #2c3e50;
+}
+
+.message-text p {
+    font-size: 13px;
+    color: #555;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.message-close {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.message-close:hover {
+    color: #333;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.message-box.removing {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@media (max-width: 480px) {
+    .message-container {
+        left: 10px;
+        right: 10px;
+        max-width: none;
+    }
+    
+    .message-box {
+        margin: 0 10px;
+    }
+}

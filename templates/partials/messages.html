@@ -1,0 +1,30 @@
+<div id="message-container" class="message-container">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message-box {% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+            <div class="message-content">
+                <i class="message-icon fas 
+                    {% if message.tags == 'success' %}fa-check-circle
+                    {% elif message.tags == 'error' %}fa-times-circle
+                    {% elif message.tags == 'warning' %}fa-exclamation-circle
+                    {% elif message.tags == 'info' %}fa-info-circle
+                    {% endif %}">
+                </i>
+                <div class="message-text">
+                    <h4>
+                        {% if message.tags == 'success' %}Başarılı!
+                        {% elif message.tags == 'error' %}Hata!
+                        {% elif message.tags == 'warning' %}Uyarı!
+                        {% elif message.tags == 'info' %}Bilgi
+                        {% endif %}
+                    </h4>
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+            <button type="button" class="message-close" aria-label="Kapat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>

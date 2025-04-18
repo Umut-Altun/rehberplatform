@@ -1,0 +1,228 @@
+.excel-upload-container {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.excel-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(107, 78, 255, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(107, 78, 255, 0.1);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color, #6b4eff);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
+    color: #2d3436;
+}
+
+.step-content p {
+    color: #636e72;
+    margin: 0 0 1rem 0;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(to right, var(--primary-color, #6b4eff), var(--primary-light, #8f7aff));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(107, 78, 255, 0.2);
+}
+
+.field-info {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.field-info h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    color: #2d3436;
+}
+
+.field-info ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.field-info ul li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #636e72;
+    font-size: 0.9rem;
+}
+
+.field-info ul li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color, #6b4eff);
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.upload-area {
+    border: 2px dashed rgba(107, 78, 255, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color, #6b4eff);
+    background: rgba(107, 78, 255, 0.02);
+}
+
+.upload-area i {
+    font-size: 3rem;
+    color: var(--primary-color, #6b4eff);
+    margin-bottom: 1rem;
+}
+
+.upload-area p {
+    margin-bottom: 1rem;
+}
+
+.select-file-btn {
+    background: #fff;
+    border: 2px solid var(--primary-color, #6b4eff);
+    color: var(--primary-color, #6b4eff);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-file-btn:hover {
+    background: rgba(107, 78, 255, 0.1);
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.remove-file-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.upload-btn {
+    width: 100%;
+    margin-top: 1rem;
+    background: linear-gradient(to right, var(--primary-color, #6b4eff), var(--primary-light, #8f7aff));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.upload-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.upload-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(107, 78, 255, 0.2);
+}
+
+.result-area {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(235, 237, 243, 0.8);
+}
+
+.result-area h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    color: #2d3436;
+}
+
+@media (max-width: 768px) {
+    .excel-upload-container {
+        padding: 1.5rem;
+    }
+
+    .step {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .field-info ul {
+        grid-template-columns: 1fr;
+    }
+}
