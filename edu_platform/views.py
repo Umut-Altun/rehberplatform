@@ -8,6 +8,8 @@ from django.core.mail import send_mail
 from apps.authentication.models import EmailVerification
 from django.conf import settings
 import logging
+from apps.teachers.models import Teacher
+from apps.students.models import Student
 
 logger = logging.getLogger(__name__)
 
@@ -68,12 +70,20 @@ def register_view(request):
             password2 = request.POST.get('password2')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
+            role = request.POST.get('role')
             terms = request.POST.get('terms')
             
             # Form validasyonları
-            if not all([username, email, password1, password2, first_name, last_name, terms]):
+            if not all([username, email, password1, password2, first_name, last_name, role, terms]):
                 messages.error(request, 'Lütfen tüm alanları doldurun ve sözleşmeyi kabul edin!')
                 return render(request, 'auth/register.html')
+
+            # Öğretmen kodu kontrolü
+            if role == 'teacher':
+                teacher_code = request.POST.get('teacher_code')
+                if teacher_code != "EDU2024TEACHER":
+                    messages.error(request, 'Geçersiz öğretmen kodu!')
+                    return render(request, 'auth/register.html')
             
             # Kullanıcı adı kontrolü
             if User.objects.filter(username=username).exists():
@@ -102,7 +112,39 @@ def register_view(request):
                 first_name=first_name,
                 last_name=last_name
             )
-            user.is_active = False
+
+            # Role göre profil oluşturma
+            if role == 'teacher':
+                Teacher.objects.create(
+                    user=user,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    role='TEACHER',
+                    tc_no='', # Geçici olarak boş
+                    phone='',  # Geçici olarak boş 
+                    branch='DIG',  # Varsayılan değer
+                    school_name='',  # Geçici olarak boş
+                    experience_years=0  # Varsayılan değer
+                )
+                profile_url = 'teachers:edit'
+            else:
+                Student.objects.create(
+                    user=user,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    role='STUDENT',
+                    tc_no='', # Geçici olarak boş
+                    student_no='', # Geçici olarak boş
+                    school_name='', # Geçici olarak boş
+                    education_level='LISE', # Varsayılan değer
+                    grade=''  # Geçici olarak boş
+                )
+                profile_url = 'students:edit'
+
+            # Kullanıcı inaktif olarak işaretlenir
+            user.is_active = False 
             user.save()
             
             # Email doğrulama kodu oluşturma
