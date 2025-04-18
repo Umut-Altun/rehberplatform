@@ -1,12 +1,7 @@
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-st+)_1+6=n65ev4i(920fuokbuhc#@j#dnxg1g^o5-)xmcz4(8'
@@ -26,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.authentication.apps.AuthenticationConfig',  # Kimlik doğrulama için özel uygulama
     'apps.exercises',
     'apps.students',
     'apps.teachers',
@@ -65,10 +61,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'edu_platform.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -95,22 +87,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Uluslararasılaştırma ayarları
+LANGUAGE_CODE = 'tr'  # en-tr yerine sadece tr kullanın
+TIME_ZONE = 'Europe/Istanbul'  # Türkiye saat dilimi
+USE_I18N = True  # Uluslararasılaştırma aktif
+USE_L10N = True  # Yerelleştirme aktif
+USE_TZ = True  # Saat dilimi desteği aktif
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
+# Desteklenen diller
+LANGUAGES = [
+    ('tr', 'Türkçe'),
+    ('en', 'English'),
+]
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -119,15 +109,25 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Authentication Settings
+# Kimlik Doğrulama Ayarları
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+# Oturum Ayarları
+SESSION_COOKIE_AGE = 3600  # 60 minutes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'altunumut0652@gmail.com'
+EMAIL_HOST_PASSWORD = 'yzuq qteu dfcw hjdq'
+DEFAULT_FROM_EMAIL = 'EduPlatform <altunumut0652@gmail.com>'
 
 # Security Settings
 SECURE_SSL_REDIRECT = False

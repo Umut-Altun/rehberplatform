@@ -2,23 +2,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from .views import index, login_view, register_view, logout_view, verify_email_view, resend_verification_view, forgot_password_view, reset_password_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_view, name='register'),
-    path('logout/', views.logout_view, name='logout'),
-    # Add exercises app URLs
+    path('', index, name='index'),
+    path('login/', login_view, name='login'),
+    path('register/', register_view, name='register'),
+    path('logout/', logout_view, name='logout'),
+    path('verify-email/', verify_email_view, name='verify_email'),
+    path('resend-verification/', resend_verification_view, name='resend_verification'),
+    path('forgot-password/', forgot_password_view, name='forgot_password'),
+    path('reset-password/', reset_password_view, name='reset_password'),
     path('exercises/', include('apps.exercises.urls')),
-    # Add students app URLs
     path('students/', include('apps.students.urls')),
-     # Add teachers app URLs
     path('teachers/', include('apps.teachers.urls')),
-    # Add settings app URLs
     path('settings/', include('apps.settings.urls')),
-    # Add feedback app URLs under an 'api' namespace
     path('api/feedback/', include('apps.feedback.urls', namespace='feedback')),
 ]
 

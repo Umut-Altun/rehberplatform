@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPlatform - E-posta Doğrulama</title>
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="/static/css/components/messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    {% include 'partials/messages.html' %}
+    <div class="page-container">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-content">
+                    <div class="auth-header">
+                        <h1>E-posta Doğrulama</h1>
+                        <p>Lütfen e-postanıza gönderilen 6 haneli doğrulama kodunu girin</p>
+                    </div>
+                    
+                    <form method="POST" class="auth-form" onsubmit="return handleSubmit(this)">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-key"></i>
+                                <input type="text" name="verification_code" 
+                                       placeholder="Doğrulama Kodu" maxlength="6" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="auth-button">
+                            <span>DOĞRULA</span>
+                        </button>
+                        <div class="loading-text">Doğrulama kodu kontrol ediliyor...</div>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Kod gelmedi mi? <a href="{% url 'resend_verification' %}">Tekrar Gönder</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2>Son Bir Adım Kaldı!</h2>
+                <p>Hesabınızı güvence altına almak için lütfen e-posta adresinizi doğrulayın.</p>
+            </div>
+            <div class="decorative-clouds"></div>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(form) {
+            const button = form.querySelector('.auth-button');
+            button.classList.add('loading');
+            form.classList.add('loading');
+            return true;
+        }
+    </script>
+</body>
+</html>

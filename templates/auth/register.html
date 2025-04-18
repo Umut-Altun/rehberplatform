@@ -1,72 +1,143 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kayıt Ol | Zihin Atölyesi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <title>EduPlatform - Üye Ol</title>
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link rel="stylesheet" href="/static/css/components/messages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-form-section">
-            <div class="auth-form-container">
-                <div class="auth-header">
-                    <h1>KAYIT OL</h1>
-                    <p class="auth-subtitle">How to i get started lorem ipsum dolor at?</p>
-                </div>
-
-                <form method="post" action="{% url 'register' %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input type="text" name="username" class="form-control" placeholder="Kullanıcı Adı" required>
-                        <i class="fas fa-user input-icon"></i>
+    {% include 'partials/messages.html' %}
+    <div class="page-container">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-content">
+                    <div class="auth-header">
+                        <h1>Hesap Oluştur</h1>
+                        <p>Topluluğumuza bugün katılın</p>
                     </div>
-                    <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="E-posta" required>
-                        <i class="fas fa-envelope input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password1" class="form-control" placeholder="Şifre" required>
-                        <i class="fas fa-lock input-icon"></i>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password2" class="form-control" placeholder="Şifre Tekrar" required>
-                        <i class="fas fa-lock input-icon"></i>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
-                </form>
+                    
+                    <form method="POST" class="auth-form" onsubmit="return handleSubmit(this) && validateForm()">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="username" placeholder="Kullanıcı Adı" required>
+                            </div>
+                        </div>
 
-                <div class="auth-divider">
-                    <span>veya</span>
-                </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="first_name" placeholder="Ad" required>
+                            </div>
+                        </div>
 
-                <div class="social-login">
-                    <button class="social-login-button google-btn">
-                        <img src="{% static 'images/google.svg' %}" alt="Google ile kayıt ol">
-                        Google ile devam et
-                    </button>
-                    <button class="social-login-button facebook-btn">
-                        <img src="{% static 'images/facebook.svg' %}" alt="Facebook ile kayıt ol">
-                        Facebook ile devam et
-                    </button>
-                </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="last_name" placeholder="Soyad" required>
+                            </div>
+                        </div>
 
-                <div class="auth-footer">
-                    <span>Zaten hesabın var mı?</span> <a href="{% url 'login' %}">Giriş Yap</a>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" placeholder="E-posta" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password1" placeholder="Şifre" required>
+                                <i class="fas fa-eye toggle-password"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="password2" placeholder="Şifre tekrar" required>
+                                <i class="fas fa-eye toggle-password"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-terms">
+                            <label class="remember-me">
+                                <input type="checkbox" name="terms" required>
+                                <span>Hesap Oluşturma Sözleşmesini kabul ediyorum.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-button">
+                            <span>HESAP OLUŞTUR</span>
+                        </button>
+                        <div class="loading-text">Hesap oluşturuluyor...</div>
+                    </form>
+
+                    <div class="auth-footer">
+                        <p>Zaten bir hesabınız var mı? <a href="/login">Giriş yap</a></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="auth-banner">
-            <div class="banner-content">
-                <h2>Türkiyenin<br>En Büyük<br>Destek Platformu!!!</h2>
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2>EduPlatform'a hoşgeldiniz!</h2>
+                <p>Öğrenme yolculunuzu bizimle başlayın. Binlerce öğrenci ve eğitmenimizin büyüyen topluluğuna katılın.</p>
             </div>
+            <div class="decorative-clouds"></div>
         </div>
     </div>
 
-    <script src="{% static 'js/auth.js' %}"></script>
+    <script src="/static/js/components/messages.js"></script>
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const passwordInput = this.previousElementSibling;
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+
+        function validateForm() {
+            const password1 = document.querySelector('input[name="password1"]').value;
+            const password2 = document.querySelector('input[name="password2"]').value;
+            const terms = document.querySelector('input[name="terms"]').checked;
+            
+            if (!terms) {
+                alert('Lütfen hesap oluşturma sözleşmesini kabul edin!');
+                return false;
+            }
+            
+            if (password1.length < 8) {
+                alert('Şifre en az 8 karakter olmalıdır!');
+                return false;
+            }
+            
+            if (password1 !== password2) {
+                alert('Şifreler eşleşmiyor!');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function handleSubmit(form) {
+            if (validateForm()) {
+                const button = form.querySelector('.auth-button');
+                button.classList.add('loading');
+                form.classList.add('loading');
+                return true;
+            }
+            return false;
+        }
+    </script>
 </body>
-</html> 
+</html>
